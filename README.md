@@ -85,6 +85,7 @@ Google에서 공개한 MediaPipe는 비디오 형식 데이터를 이용한 다�
 
 -  진행 방법:  
 최종 사용 모델: Keras의 LSTM 사용
+<img src="/image_git/example_sentiment.png" >
 모델 선택 이유: 
 LSTM모델은 Long Short Term Memory의 줄임말로 주로 시계열 처리나 자연어 처리때 사용한다. 
 여러 모델을 사용해 비교해 본 결과 다른 기술과도 호환이 쉬웠다. 특히 파이썬의 버전과 넘파이 버전에서 충돌을 일으키지 않고 모델을 불러 올 수 있었다. 
