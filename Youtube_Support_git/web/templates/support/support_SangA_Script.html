@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SangA 스크립트 수집 집계</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    {% include 'include/nav_test.html' %}
+    <link rel = "stylesheet" href= "{% static 'css/test.css' %}">
+</head>
+
+
+<body>       
+    <div class="container">
+        <button class = "btn"><a href = "../SangA_Act/" style = "color : white;">활성화</a></button>
+        <button class = "btn"><a href = "../SangA_Com/" style = "color : white;">댓글</a></button>
+        <button class = "btn"><a href = "../SangA_Cap/" style = "color : white;">캡처</a></button>
+        <button class = "btn"><a href = "../SangA_Htag/" style = "color : white;">해시태그</a></button>
+        <button class = "btn"><a href = "../SangA_Script/" style = "color : white;">스크립트</a></button>
+        <h4 class="text-center" style = "color: white;">SangA 스크립트 데이터</h4><br>            
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th style = "color: white;">비디오 명</th>
+                    <th style = "color: white;">스크립트 time</th>
+                    <th style = "color: white;">스크립트 내용</th>
+                    <th style = "color: white;">스크립트 수집 시간</th>          
+                </tr>
+            </thead>        
+            <tbody>
+                <!-- jinja2 Technique -->
+                {% if scp %}  
+                {% for i in scp %}
+                <tr>
+                    <td>{{i.video_name}}</td>
+                    <td>{{i.time}}</td>
+                    <td>{{i.script}}</td>
+                    <td>{{i.script_get}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if scp.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ scp.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in scp.paginator.page_range %}
+            {% if page_number >= scp.number|add:-5 and page_number <= scp.number|add:5 %}
+            {% if page_number == scp.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if scp.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ scp.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
+        </div>
+</body>
+{% include 'include/footer.html' %}
+</html>

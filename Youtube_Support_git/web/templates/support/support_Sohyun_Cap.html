@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SoHyun 캡처 집계</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    {% include 'include/nav_test.html' %}
+    <link rel = "stylesheet" href= "{% static 'css/test.css' %}">
+</head>
+
+
+<body>       
+    <div class="container">
+        <button class = "btn"><a href = "../SoHyun_Act/" style = "color : white;">활성화</a></button>
+        <button class = "btn"><a href = "../SoHyun_Com/" style = "color : white;">댓글</a></button>
+        <button class = "btn"><a href = "../SoHyun_Cap/" style = "color : white;">캡처</a></button>
+        <button class = "btn"><a href = "../SoHyun_Htag/" style = "color : white;">해시태그</a></button>
+        <button class = "btn"><a href = "../SoHyun_Script/" style = "color : white;">스크립트</a></button>
+        <h4 class="text-center" style = "color: white;">SoHyun 캡처 데이터</h4><br>            
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th style = "color: white;">비디오 명</th>
+                    <th style = "color: white;">이미지 저장 경로</th>
+                    <th style = "color: white;">캡처이미지</th> 
+                    <th style = "color: white;">이미지 캡처 시간</th>        
+                </tr>
+            </thead>        
+            <tbody>
+                <!-- jinja2 Technique -->
+                {% if cap %}  
+                {% for i in cap %}
+                <tr>
+                    <td>{{i.video_name}}</td>
+                    <td>{{i.img_path}}</td>
+                    {% comment %} <td><img src="{%static 'screenshot/{{i.capture_get_day}}/{{i.id}}' %}"></td> {% endcomment %}
+                    <td><img src="{% get_static_prefix %}screenshot/{{i.capture_get_day}}/{{i.id}}" width = "150" height = "100"></td>
+                    <td>{{i.capture_get}}</td>
+                    {% comment %} {% static "screenshot/{{i.capture_get_day}}/{{i.img_}} %} {% endcomment %}
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if cap.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ cap.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in cap.paginator.page_range %}
+            {% if page_number >= cap.number|add:-5 and page_number <= cap.number|add:5 %}
+            {% if page_number == cap.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if cap.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ cap.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
+        </div>
+</body>
+{% include 'include/footer.html' %}
+</html>
