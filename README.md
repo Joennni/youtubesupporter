@@ -78,7 +78,7 @@ Google에서 공개한 MediaPipe는 비디오 형식 데이터를 이용한 다�
 
 #### 3) 댓글 감성 분석:  
 <img src="/image_git/example_sentiment.png" >
-<img src="/image_git/piegraph.png" width="400" height="420">
+<img src="/image_git/piegraph.png" width="400" height="430">
 감성분석은 텍스트 문서의 감성을 분류하는 문서 분류로 텍스트 문서에서 감성을 긍정 혹은 부정으로 분류하는 분석으로 자연어 처리 중 한 분야이다. 딥러닝을 이용한 감성 분석 방법론은 문서를 토큰화 후 임베딩을 통해 문장벡터를 얻는 과정과 벡터화된 문서를 분류하는 과정으로 나눌 수 있다.  
 감성 분석은 감성을 분류하고, 더 나아가 감성 분석의 결과를 이용해 여론을 분석하는 오피니언 마이닝 분야에서 응용된다. 
  (오영택, 김민태, 김우주. (2019). Parallel Stacked Bidirectional LSTM 모델을 이용한 한국어 영화리뷰 감성 분석. 정보과학회논문지, 46(1)) 
