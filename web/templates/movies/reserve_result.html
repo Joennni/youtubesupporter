@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>예매 결과</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+        .table22 {
+            text-align: center;
+            margin-left: 150px;
+            margin-right: 150px;
+            margin-top: 30px;
+            font-size: 25px;
+        }
+        .table2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'include/nav_bootstrap.html' %}
+    <div class="table22">
+        {% if result == True %}
+            <h4>예매 완료</h4>
+            <div class='table2'>
+                <hr>
+            </div>
+            <h5>{{name}} 을(를) 예매하여 {{price}} 포인트 차감되었습니다.</h5>
+            <h5>예매 적립포인트 1,000 포인트 적립되었습니다.</h5>
+            <h5>회원님의 최종 누적 포인트는 {{after_point}} 입니다.</h5>
+            {% if msg == 'not click' %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit">추첨</button>
+            </form>
+            {% endif %}
+            {% if msg == 'click' %}
+                <h5>{{lottery}}</h5>
+                <button onclick="location.href='{% url 'myInfo' %}'">
+                    내 정보로 이동
+                </button>
+            {% endif %}
+        {% else %}
+            <h4>예매 실패</h4>
+            <div class='table2'>
+                <hr>
+            </div>
+            <h5>{{after_point}}</h5>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
+</html>

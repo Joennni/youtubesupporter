@@ -1,0 +1,80 @@
+{% include 'include/nav_test.html' %} 
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+    <style>
+		textarea {
+			width: 80%;
+			height: 400px;
+			padding: 160px 0 100px 0;
+			box-sizing: border-box;
+			border: solid 2px #004fff;
+			border-radius: 5px;
+			font-size: 16px;
+			resize: both;
+            display: flex;
+            margin: auto;
+		}
+
+        input{
+            display: flex;
+            margin: auto;            
+        }
+
+        input#chat-message-submit{
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: #004fff;
+        }
+	</style>
+</head>
+<body>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-log').value += (data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+    
+</body>
+{% include 'include/footer.html' %}
+</html>

@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>JiHyun 활성화 집계</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    {% include 'include/nav_test.html' %}
+    <link rel = "stylesheet" href= "{% static 'css/test.css' %}">
+</head>
+
+
+<body>       
+    <div class="container">
+        <button class = "btn"><a href = "../JiHyun_Act/" style = "color : white;">활성화</a></button>
+        <button class = "btn"><a href = "../JiHyun_Com/" style = "color : white;">댓글</a></button>
+        <button class = "btn"><a href = "../JiHyun_Cap/" style = "color : white;">캡처</a></button>
+        <button class = "btn"><a href = "../JiHyun_Htag/" style = "color : white;">해시태그</a></button>
+        <button class = "btn"><a href = "../JiHyun_Script/" style = "color : white;">스크립트</a></button>
+        <h4 class="text-center" style = "color: white;">JiHyun 활성화 시간</h4><br>            
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th style = "color: white;">활성화 유저명</th>
+                    <th style = "color: white;">활성화 시간</th>
+                </tr>
+            </thead>        
+            <tbody>
+                <!-- jinja2 Technique -->
+                {% if act %}  
+                {% for i in act %}
+                <tr>
+                    <td>{{i.mem_name}}</td>
+                    <td>{{i.activation}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        
+                
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if act.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ act.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in act.paginator.page_range %}
+            {% if page_number >= act.number|add:-5 and page_number <= act.number|add:5 %}
+            {% if page_number == act.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if act.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ act.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
+        </div>
+        
+
+</body>
+{% include 'include/footer.html' %}
+</html>

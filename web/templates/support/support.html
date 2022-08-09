@@ -1,0 +1,226 @@
+{% extends 'support/base.html' %}
+
+  {% block content %}
+  {% load static %}
+  <body>
+    <table class="tg" align = "center">
+    <thead>
+      <tr>
+        <th class="tg-i8wc">사용자</th>
+        <th class="tg-i8wc">접속횟수</th>
+        <th class="tg-i8wc">댓글 수집 갯수</th>
+        <th class="tg-i8wc">캡처 이미지 갯수</th>
+        <th class="tg-i8wc">해시태그 수집 갯수</th>
+        <th class="tg-i8wc">자막  수집 갯수</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tg-940v" title = 'SoHyun의 상세페이지로 이동합니다.'><a href = "/board/SoHyun_Act/">SoHyun</a></td>
+        <td class="tg-940v">{{con1}}</td>
+        <td class="tg-940v">{{com}}</td>
+        <td class="tg-940v">{{cap}}</td>
+        <td class="tg-940v">{{tag}}</td>
+        <td class="tg-940v">{{scp}}</td>
+      </tr>
+      <tr>
+        <td class="tg-940v" title = 'SangA의 상세페이지로 이동합니다.'><a href = "/board/SangA_Act/">SangA</a></td>
+        <td class="tg-940v">{{con2}}</td>
+        <td class="tg-940v">{{com1}}</td>
+        <td class="tg-940v">{{cap1}}</td>
+        <td class="tg-940v">{{tag1}}</td>
+        <td class="tg-940v">{{scp1}}</td>
+      </tr>
+      <tr>
+        <td class="tg-940v" title = 'MinHee의 상세페이지로 이동합니다.'><a href = "/board/MinHee_Act/">MinHee</a></td>
+        <td class="tg-940v">{{con3}}</td>
+        <td class="tg-940v">{{com2}}</td>
+        <td class="tg-940v">{{cap2}}</td>
+        <td class="tg-940v">{{tag2}}</td>
+        <td class="tg-940v">{{scp2}}</td>
+      </tr>
+      <tr>
+        <td class="tg-940v" title = 'JiHyun의 상세페이지로 이동합니다.'><a href = "/board/JiHyun_Act/">JiHyun</a></td>
+        <td class="tg-940v">{{con4}}</td>
+        <td class="tg-940v">{{com3}}</td>
+        <td class="tg-940v">{{cap3}}</td>
+        <td class="tg-940v">{{tag3}}</td>
+        <td class="tg-940v">{{scp3}}</td>
+      </tr>
+      <tr>
+        <td class="tg-uz8w">합계</td>
+        <td class="tg-940v">{{s_total}} </td>
+        <td class="tg-940v">{{com_total}}</td>
+        <td class="tg-940v">{{cap_total}}</td>
+        <td class="tg-940v">{{tag_total}}</td>
+        <td class="tg-940v">{{scp_total}}</td>
+      </tr>
+      <tr>
+        <td class="tg-uz8w">평균값</td>
+        <td class="tg-940v">{{s_avg}} </td>
+        <td class="tg-940v">{{com_avg}} </td>
+        <td class="tg-940v">{{cap_avg}} </td>
+        <td class="tg-940v">{{tag_avg}} </td>
+        <td class="tg-940v">{{scp_avg}} </td>
+      </tr>
+      <tr>
+        <td class="tg-uz8w">최소값</td>
+        <td class="tg-940v">{{con_min}}</td>
+        <td class="tg-940v">{{com_min}}</td>
+        <td class="tg-940v">{{cap_min}}</td>
+        <td class="tg-940v">{{tag_min}}</td>
+        <td class="tg-940v">{{scp_min}}</td>
+      </tr>
+      <tr>
+        <td class="tg-uz8w">최대값</td>
+        <td class="tg-940v">{{con_max}}</td>
+        <td class="tg-940v">{{com_max}}</td>
+        <td class="tg-940v">{{cap_max}}</td>
+        <td class="tg-940v">{{tag_max}}</td>
+        <td class="tg-940v">{{scp_max}}</td>
+      </tr>
+    </tbody>
+    </table>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/62e0df9637898912e95fda65/1g8v6ip9i';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+      })();
+    </script>
+      <!--End of Tawk.to Script-->
+    <p></p>
+    <div class = "selectbox" align = "center" >
+      <select onChange = "document.getElementById('papa').src=this.value">
+        <option value="{% static 'img/option.png' %}" selected disabled hidden>옵션 리스트</option>
+        <option value="{% static 'img/유저별_접속횟수.png' %}">유저별 접속횟수</option>
+        <option value="{% static 'img/유저별_댓글수집횟수.png' %}" >유저별 댓글수집갯수</option>
+        <option value="{% static 'img/유저별_캡쳐횟수.png' %}">유저별 캡쳐갯수</option>
+        <option value="{% static 'img/유저별_해시태그_수집_횟수.png' %}">유저별 해시태그 수집 갯수</option>
+        <option value="{% static 'img/유저별_스크립트_수집_횟수.png' %}">유저별 스크립트 수집 갯수</option>
+      </select>        
+
+    </div>
+    <p></p>
+    <div class = "selectbox" align = "center" >
+      <img id="papa" src="{% static 'img/option.png' %}" width="600" height="600">
+    </div>
+    {% comment %} <p></p>
+    <div class = "chat" align = "center" >
+    <iframe src="https://service.dongledongle.com/Youtube_support" frameborder="0" width="900" height="600"></iframe>
+    </div>
+  </body> {% endcomment %}
+
+  <p></p>
+  <!--산점도 그래프-->
+  <body translate="no"> 
+      <div > 
+        <canvas id="chart1"></canvas> 
+      </div> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> 
+      <script>
+      labels = {{label|safe}}
+      
+      var data0= [
+        {% for s in s_df.values %}
+            {x: {{s.2}}, y: {{s.1}}}, 
+        {% endfor %}
+      ];
+      var data1= [
+        {% for a in a_df.values %}
+            {x: {{a.2}}, y: {{a.1}}},
+        {% endfor %}
+      ];
+      var data2 = [
+        {% for m in m_df.values %}
+            {x: {{m.2}}, y: {{m.1}}},
+        {% endfor %}
+      ];
+      var data3 = [
+        {% for j in j_df.values %}
+            {x: {{j.2}}, y: {{j.1}}},
+        {% endfor %}
+      ];
+
+var ctx = document.getElementById("chart1").getContext("2d");
+var myScatter = Chart.Bubble(ctx, {
+  data: {
+    datasets: [{
+      label: '{{label.0|safe}}',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      backgroundColor:'rgba(255, 99, 132, 0.2)',
+      data: data0
+    }, {
+      label: '{{label.1|safe}}',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor:'rgba(54, 162, 235, 0.2)',
+      data: data1
+    }, {
+      label: '{{label.2|safe}}',
+      borderColor: 'rgba(255, 206, 86, 1)',
+      backgroundColor:'rgba(255, 206, 86, 0.2)',
+      data: data2
+    }, {
+      label:'{{label.3|safe}}',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      backgroundColor:'rgba(75, 192, 192, 0.2)',
+      data: data3
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '사용자별 시간대별 댓글수집 건수',
+      fontSize : 20,
+      fontColor : 'white'
+    },
+    showLines: true,
+    scales :{
+        yAxes: [{
+          gridLines: {
+            display : true,
+            color : 'rgba(255,255,255,0.5)',
+            borderDash : [1,10]
+          },
+          ticks: {
+                min:0,
+                max:800,  
+                fontColor : 'rgba(255,255,255,1)',
+                fontSize : 12
+            }
+        }],
+        xAxes: [{
+          gridLines: {
+            display : false,
+            color : 'rgba(255,255,255,0.5)'
+          },
+          ticks: {
+              min:0,
+              max:24,
+              stepSize: 3,
+              fontColor : 'rgba(255,255,255,1)',
+              fontSize : 12
+          }
+        }]
+    },
+    elements: {
+      point: {
+        radius: 15
+      }
+    }
+  }
+});
+      </script>  
+  </body>
+</html>
+
+</html>
+
+
+{% endblock %}

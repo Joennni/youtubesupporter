@@ -1,0 +1,111 @@
+{% extends 'support/base.html' %}
+
+{% block content %}
+<html lang="ko">
+  <head> 
+      <title>Scatter chart</title> 
+  </head> 
+  <body translate="no"> 
+      <div > 
+        <canvas id="chart1"></canvas> 
+      </div> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> 
+      <script>
+      //labels = {{c_name|safe}}
+      
+var SoHyun = [
+  {% for i in SoHyun_cnt %}
+    {x: {{i.commemt_get_time |slice:2}}, y: {{i.dcount}}},
+  {% endfor %}
+  ];
+
+var SangA = [
+  {% for j in SangA_cnt %}
+    {x: {{j.commemt_get_time |slice:2}}, y: {{j.dcount}}},
+  {% endfor %}
+  ];
+
+var MinHee = [
+  {% for k in MinHee_cnt %}
+    {x: {{k.commemt_get_time |slice:2}}, y: {{k.dcount}}},
+  {% endfor %}
+  ];
+
+var JiHyun = [
+  {% for m in JiHyun_cnt %}
+    {x: {{m.commemt_get_time |slice:2}}, y: {{m.dcount}}},
+  {% endfor %}
+  ];
+
+var ctx = document.getElementById("chart1").getContext("2d");
+var myScatter = Chart.Bubble(ctx, {
+  data: {
+    datasets: [{
+      label: 'SoHyun',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      backgroundColor:'rgba(255, 99, 132, 0.2)',
+      data: SoHyun
+    },{
+      label: 'SangA',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor:'rgba(54, 162, 235, 0.2)',
+      data: SangA
+    },{
+      label: 'MinHee',
+      borderColor: 'rgba(255, 206, 86, 1)',
+      backgroundColor:'rgba(255, 206, 86, 0.2)',
+      data: MinHee
+    },{
+      label: 'JiHyun',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      backgroundColor:'rgba(75, 192, 192, 0.2)',
+      data: JiHyun
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '사용자별 시간대별 댓글수집 건수',
+      fontSize : 20,
+      fontColor : 'white'
+    },
+    showLines: true,
+    scales :{
+        yAxes: [{
+          gridLines: {
+            display : true,
+            color : 'rgba(255,255,255,0.5)',
+            borderDash : [1,10]
+          },
+          ticks: {
+                min:0,
+                max:200,  
+                fontColor : 'rgba(255,255,255,1)',
+                fontSize : 12
+            }
+        }],
+        xAxes: [{
+          gridLines: {
+            display : false,
+            color : 'rgba(255,255,255,0.5)'
+          },
+          ticks: {
+              min:8,
+              max:24,
+              fontColor : 'rgba(255,255,255,1)',
+              fontSize : 12
+          }
+        }]
+    },
+    elements: {
+      point: {
+        radius: 15
+      }
+    }
+  }
+});
+      </script>  
+  </body>
+</html>
+{% endblock %}

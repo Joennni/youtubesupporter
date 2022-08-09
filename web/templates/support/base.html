@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>집계 그래프</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    {% include 'include/nav_test.html' %}
+    <link rel = "stylesheet" href= "{% static 'css/test.css' %}">
+
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-i8wc{background-color:#ffffff;border-color:#333333;color:#333333;font-family:Arial !important;font-weight:bold;
+            text-align:center;vertical-align:middle}
+        .tg .tg-940v{background-color:#000000;border-color:#ffffff;color:#ffffff;text-align:center;vertical-align:middle}
+        .tg .tg-uz8w{background-color:#ffffff;border-color:#333333;color:#333333;font-weight:bold;text-align:center;vertical-align:middle}
+    </style>
+
+    <style>
+        @media screen and (max-width: 768px){ 
+                iframe{
+                    width: 350px;
+                }
+        }
+    </style>
+
+</head>
+
+{% block content %}
+
+{%endblock%}
+
+{% include 'include/footer.html' %}
+</html>
