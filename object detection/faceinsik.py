@@ -154,10 +154,10 @@ class faceinsik:
         print('손동작 인식을 실행시키면 유튜브 창이 자동으로 켜지며 손동작을 인식합니다.')
         print('손동작을 인식하는 카메라는 유저의 손이 화면에 인식될때만 동작합니다. 만약 윈도우 창의 위치를 이동하고 싶다면 손바닥을 카메라에 보여주고 조작하십시오.')
         print('shift + a를 누르면서 검지와 엄지사이의 거리를 조절하면 볼륨조절을 할 수 있습니다.')
-        print('손등을 카메라쪽으로 보여주며 브이를 하면 Yeah~! 라는 문구가 뜨며 이때 shift + C를 누르면 해시태그가 수집됩니다.')
-        print('손등을 카메라쪽으로 보여주며 검지하나만 올리면 no! 라는 문구가 뜨며 이때 shift + C를 누르면 유튜브창이 스크롤되며 댓글이 수집됩니다.')
-        print('손등을 카메라쪽으로 보여주며 엄지만 펴면 Thumbs up! 라는 문구가 뜨며 이때 shift + C를 누르면 활성화창의 화면이 스크랩됩니다')
-        print('손등을 카메라쪽으로 보여주며 엄지와 검지를 펴면 two 라는 문구가 뜨며 이때 shift + C를 누르면 자막이 수집됩니다. 이때 자막이 없는 동영상에서 실행시에는 오류가 발생할 수 있습니다.')
+        print('손등을 카메라쪽으로 보여주며 브이를 하면 Yeah~! 라는 문구가 뜨며 이때 shift + x를 누르면 해시태그가 수집됩니다.')
+        print('손등을 카메라쪽으로 보여주며 검지하나만 올리면 no! 라는 문구가 뜨며 이때 shift + x를 누르면 유튜브창이 스크롤되며 댓글이 수집됩니다.')
+        print('손등을 카메라쪽으로 보여주며 엄지만 펴면 Thumbs up! 라는 문구가 뜨며 이때 shift + x를 누르면 활성화창의 화면이 스크랩됩니다')
+        print('손등을 카메라쪽으로 보여주며 엄지와 검지를 펴면 two 라는 문구가 뜨며 이때 shift + x를 누르면 자막이 수집됩니다. 이때 자막이 없는 동영상에서 실행시에는 오류가 발생할 수 있습니다.')
         print('    ')
         print('http://gmrain.synology.me:8080/ 에서 접속하여 수집된 데이터를 확인할 수 있습니다.')
         
@@ -243,9 +243,7 @@ class faceinsik:
 
                 # Stream results
                 im0 = annotator.result()
-                #sqlite3 DB 연결
-                connect = sqlite3.connect("Z:/homes/gmrain/djangoproject/Youtube_Supporter/db.sqlite3")
-                Cursor = connect.cursor()
+
                 # 시간대 설정
                 now = datetime.now()
                 today = now.date()
@@ -266,17 +264,26 @@ class faceinsik:
                     if keyboard.is_pressed('shift'):
                         if keyboard.is_pressed('z'):
                             if str(names[c])== "SoHyun" :
+                                                #sqlite3 DB 연결
+                                connect = sqlite3.connect("Z:/homes/gmrain/djangoproject/Youtube_Supporter/db.sqlite3")
+                                Cursor = connect.cursor()
                                 Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                                 if Cursor.fetchone() == ('SoHyun','SoHyun',):
                                     print('SoHyun 유저가 이미 활성화 되어있습니다')
                                     time.sleep(2)
+                                    Cursor.close()
+                                    connect.close()
                                     continue
                                 Cursor.execute("INSERT INTO board_Member_list VALUES (?,?)", ('SoHyun',"SoHyun",))
                                 Cursor.execute("INSERT INTO board_Member_time VALUES (?,?,?,?,?)", ('SoHyun',"SoHyun","{} {}".format(today,current_time),today,current_time))
                                 connect.commit()
                                 print('SoHyun 유저가 활성화 되었습니다')
+                                Cursor.close()
+                                connect.close()
                                 time.sleep(2)
                             if str(names[c])== "SangA" :
+                                connect = sqlite3.connect("Z:/homes/gmrain/djangoproject/Youtube_Supporter/db.sqlite3")
+                                Cursor = connect.cursor()
                                 Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                                 if Cursor.fetchone() == ('SangA','SangA',):
                                     print('SangA 유저가 이미 활성화 되어있습니다')
@@ -286,8 +293,12 @@ class faceinsik:
                                 Cursor.execute("INSERT INTO board_Member_time VALUES (?,?,?,?,?)", ('SangA',"SangA","{} {}".format(today,current_time),today,current_time))
                                 connect.commit()
                                 print('SangA 유저가 활성화 되었습니다')
+                                Cursor.close()
+                                connect.close()
                                 time.sleep(2)
                             if str(names[c])== "MinHee" :
+                                connect = sqlite3.connect("Z:/homes/gmrain/djangoproject/Youtube_Supporter/db.sqlite3")
+                                Cursor = connect.cursor()
                                 Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                                 if Cursor.fetchone() == ('MinHee','MinHee',):
                                     print('MinHee 유저가 이미 활성화 되어있습니다')
@@ -297,24 +308,33 @@ class faceinsik:
                                 Cursor.execute("INSERT INTO board_Member_time VALUES (?,?,?,?,?)", ('MinHee',"MinHee","{} {}".format(today,current_time),today,current_time))
                                 connect.commit()
                                 print('MinHee 유저가 활성화 되었습니다')
+                                Cursor.close()
+                                connect.close()
                                 time.sleep(2)
                             if str(names[c])== "JiHyun" :
+                                connect = sqlite3.connect("Z:/homes/gmrain/djangoproject/Youtube_Supporter/db.sqlite3")
+                                Cursor = connect.cursor()
                                 Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                                 if Cursor.fetchone() == ('JiHyun','JiHyun',):
                                     print('JiHyun 유저가 이미 활성화 되어있습니다')
+                                    Cursor.close()
+                                    connect.close()
                                     time.sleep(2)
                                     continue
                                 Cursor.execute("INSERT INTO board_Member_list VALUES (?,?)", ('JiHyun',"JiHyun",))
                                 Cursor.execute("INSERT INTO board_Member_time VALUES (?,?,?,?,?)", ('JiHyun',"JiHyun","{} {}".format(today,current_time),today,current_time))
                                 connect.commit()
+                            
                                 print('JiHyun 유저가 활성화 되었습니다')
+                                Cursor.close()
+                                connect.close()
                                 time.sleep(2)
 
     
 
                     cv2.imshow3(str(p), im0)
                     cv2.waitKey(1)  # 1 millisecond
-                connect.close()
+
                                         
                 # Save results (image with detections)
                 if save_img:

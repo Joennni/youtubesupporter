@@ -32,6 +32,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다']
 okt = Okt()
+count22 = 0
 
 import tensorflow as tf
 from  tensorflow.keras.models import load_model
@@ -112,13 +113,13 @@ def dist(x1,y1,x2,y2):
 compareIndex = [[18,4],[6,8],[10,12],[14,16],[18,20]]
 openfinger = [False,False,False,False,False]
 gesture = [[True,True,True,True,True, "Hi~!"],
-            [False,True,True,False,False,"Yeah~!"],
+            [False,True,True,False,False,"H_tag"],
             [True,True,False,False,True,"SpiderMan!"],
-            [True,False,False,False,False, "Thumbs Up!"],
-            [False,True,False,False,False, "No!"],
+            [True,False,False,False,False, "Capture"],
+            [False,True,False,False,False, "Comment"],
             [False,False,True,False,False, "******"],
-            [False,False,False,False,False, "fighting!"],
-            [True,True,False,False,False, "Two"],
+            [False,False,False,False,False, "Stop/replay"],
+            [True,True,False,False,False, "Script"],
             [False,False,False,False,True, "Promise!"]]
 
 
@@ -177,13 +178,14 @@ while True:
                     if(flag == True):
                         action2=gesture[i][5]
                         cv2.putText(img,gesture[i][5],(round(text_x) -50,round(text_y)- 250),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),4)
-                mpDraw.draw_landmarks(img,handLms,mpHands.HAND_CONNECTIONS)
+                mpDraw.draw_landmarks(img,handLms,mpHands.HAND_CONNECTIONS, mpDraw_styles.get_default_hand_landmarks_style(),
+            mpDraw_styles.get_default_hand_connections_style())
 
                     
                 
                 if keyboard.is_pressed('shift'):
-                    if keyboard.is_pressed('c'):
-                        if str(action2)== "Thumbs Up!" :
+                    if keyboard.is_pressed('x'):
+                        if str(action2)== "Capture" :
                             Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                             NN=Cursor.fetchone()
                             print(NN[0])
@@ -201,17 +203,17 @@ while True:
                             video_name = video_name[0].text
 
                             pyautogui.screenshot('{}/{}_{}_{}.jpg'.format(dest_folder,NN[0],today,current_time2), region=(fw.left,fw.top,fw.size[0],fw.size[1]))
-                            Cursor.execute("INSERT INTO board_Capture VALUES (?,?,?,?,?,?,?)", ('{}_{}_{}.jpg'.format(NN[0],today,current_time2),NN[0],video_name,'{}/{}_{}.jpg'.format(dest_folder,today,current_time2),"{} {}".format(today,current_time),today,current_time))
+                            Cursor.execute("INSERT INTO board_Capture VALUES (?,?,?,?,?,?,?)", ('{}_{}_{}.jpg'.format(NN[0],today,current_time2),NN[0],video_name,'{}/{}_{}_{}.jpg'.format(dest_folder,NN[0],today,current_time2),"{} {}".format(today,current_time),today,current_time))
                             connect.commit()
                             print(NN[0], ' 유저가 화면을 캡처하였습니다.', '{}/{}_{}_{}.jpg'.format(dest_folder,NN[0],today,current_time2))
-                        if str(action2)== "fighting!" :
+                        if str(action2)== "Stop/replay" :
                             Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                             NN=Cursor.fetchone()
                             print(NN[0], '멈추거나 재생합니다')
                             pyautogui.press(['space'])
                                         
                                     
-                        if str(action2) == 'No!': #댓글 크롤링    
+                        if str(action2) == 'Comment': #댓글 크롤링    
                                         Cursor.execute("SELECT * FROM board_Member_list ORDER BY ROWID DESC LIMIT 1")
                                         NN=Cursor.fetchone()
                                         print(NN[0])
@@ -244,8 +246,8 @@ while True:
                                         time.sleep(0.5)
                                         driver.execute_script("window.scrollTo(0, 3500)")
                                         time.sleep(0.5)
-                                        # driver.execute_script("window.scrollTo(0, 4000)")
-                                        # time.sleep(0.5)
+                                        driver.execute_script("window.scrollTo(0, 4000)")
+                                        time.sleep(0.5)
                                         # driver.execute_script("window.scrollTo(0, 4500)") 
                                         # time.sleep(0.5)
                                         # driver.execute_script("window.scrollTo(0, 5000)")
@@ -351,7 +353,7 @@ while True:
                                         connect.close()
                             
                         
-                        if str(action2) == 'Yeah~!': #해쉬태그 크롤링
+                        if str(action2) == 'H_tag': #해쉬태그 크롤링
                             id_final = []
                             comment_final = []
                             com_count += 1
@@ -398,7 +400,7 @@ while True:
                             connect.close()
 
                         
-                        if str(action2) == 'Two': #자막
+                        if str(action2) == 'Script': #자막
                             
                             id_final = []
                             comment_final = []
@@ -451,8 +453,18 @@ while True:
                             connect.close()
 
                 cv2.namedWindow('MediaPipe Hands', cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
-                cv2.resizeWindow('MediaPipe Hands', 1400, 1000)
+                if count22 < 300:
+                    cv2.resizeWindow('MediaPipe Hands', 1400, 1000)
+                
+                elif count22 > 300:
+                    cv2.resizeWindow('MediaPipe Hands', 500, 400)
+                    
                 cv2.imshow('MediaPipe Hands', img)
+                
+                count22= count22+1
+                
+                
+                
                 
                 
                 # cv2.waitkey(1)
